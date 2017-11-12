@@ -12,16 +12,6 @@ bool tracytian_utils::ck_open(FILE ** FH, const string &file_path, const char * 
 	}
 }
 
-bool tracytian_utils::ck_open(const string &file_path, fstream &FH, ios_base::openmode mode) {
-  FH.open(file_path, mode);
-  if (!FH.is_open()) {
-    cerr << "Cannot open file " << file_path << endl;
-    return false;
-  } else {
-    return true;
-  }
-}
-
 string tracytian_utils::bin_path() {
 	char bin_path[MAX_SIZE], * p;
 	readlink("/proc/self/exe", bin_path, MAX_SIZE);
@@ -58,19 +48,4 @@ char * tracytian_utils::itoa(int num,char * str,int radix) {/*索引表*/// the 
 		str[i-1+k-j]=temp;
 	}
 	return str;
-}
-
-bool tracytian_utils::split(const string & input_str, const string& regex, vector<string> * const split_list) {
-  std::regex reg(regex);
-  sregex_token_iterator
-    first{input_str.begin(), input_str.end(), reg, - 1}, last;
-  * split_list = {first, last};
-  return true;
-}
-
-bool tracytian_utils::chomp(string const &line, char const &end, string * const res_line) {
-  uint32_t pos = line.length();
-  while (line[-- pos] == end){}
-  * res_line = line.substr(0, pos + 1);
-  return true;
 }
